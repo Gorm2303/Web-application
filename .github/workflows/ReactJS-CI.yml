@@ -27,4 +27,4 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Push Docker image to registry
-      run: docker push gorm2303/ba-web-application
+      run: docker push gorm2303/ba-web-application:latest
