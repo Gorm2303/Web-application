@@ -4,7 +4,7 @@ import Popup from './Pop-up';
 export default function App() {
     return (
         <div>
-            This is the Catalog page
+            <h1>Catalog</h1>
             <Popup />
         </div>
     )
