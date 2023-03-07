@@ -13,7 +13,7 @@ export default function VideoList(props) {
       console.log("Could not GET response")
       console.error(error);
     }
-  }, [currentPage]);
+  });
 
   async function fetchData() {
     const response = await axios.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=0c2928a0d441bf2ce59630be504699c4&language=en-US&page=${currentPage}`)//'/api/v1/videometadata');
