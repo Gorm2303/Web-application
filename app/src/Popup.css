@@ -38,3 +38,11 @@
     text-decoration: none;
     cursor: pointer;
   }
+
+  .smallInfo {
+    margin: 2em;
+  }
+
+  .singleText {
+    padding: 0.5em;
+  }

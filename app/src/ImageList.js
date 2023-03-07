@@ -14,7 +14,6 @@ function ImageList({ httpResponse }) {
   function handleClick(video) {
     setPopupData(video);
     setPopup(true);
-    console.log("ActivatePopup: " + isPopup);
   }
 
   function handleClosePopup() {
