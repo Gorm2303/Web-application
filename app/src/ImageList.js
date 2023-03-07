@@ -1,19 +1,34 @@
 import React, { useState, useEffect } from 'react';
+import Popup from './Popup';
 
 function ImageList({ httpResponse }) {
-  const [images, setImages] = useState([]);
+  const [videos, setVideos] = useState([]);
+  const [PopupData, setPopupData] = useState([]);
+  const [isPopup, setPopup] = useState(false);
+
 
   useEffect(() => {
-    console.log(httpResponse)
-    setImages(httpResponse);
-    
+    setVideos(httpResponse);
   }, [httpResponse]);
 
+  function handleClick(video) {
+    setPopupData(video);
+    setPopup(true);
+    console.log("ActivatePopup: " + isPopup);
+  }
+
+  function handleClosePopup() {
+    setPopup(false);
+  }
+
   return (
-    <div>
-      {images.map((image, index) => (
-        <img key={image.poster_path} width={200} src={'https://image.tmdb.org/t/p/original' + image.poster_path} alt={`${index + 1}`} />
+    <div>      
+      {videos.map((video, index) => (
+        <span key={video.poster_path}>
+          <img onClick={() => handleClick(video)} width={200} src={'https://image.tmdb.org/t/p/original' + video.poster_path} alt={`${index + 1}`} />
+        </span>
       ))}
+      <Popup active={isPopup} metadata={PopupData} onClose={handleClosePopup} />
     </div>
   );
 }
