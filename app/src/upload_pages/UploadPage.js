@@ -71,9 +71,9 @@ export default function Form() {
       <DatePicker selectedDate={date} handleDateChange={handleDateChange} />
       
       <label htmlFor="poster">Upload Poster</label>
-      <UploadPicker onChange={handlePosterChange} description={'Poster Upload'} example_input_file={'.PNG'}/>
+      <UploadPicker onChange={handlePosterChange} description={'Poster Upload'} accept={"image/*"} example_input_file={'.PNG'}/>
       <label htmlFor="video">Upload Video</label>
-      <UploadPicker onChange={handleVideoChange} description={'Video Upload'} example_input_file={'.MP4'}/>
+      <UploadPicker onChange={handleVideoChange} description={'Video Upload'} accept={"video/*"} example_input_file={'.MP4'}/>
       
       <label htmlFor="description">Description</label>
       <div>

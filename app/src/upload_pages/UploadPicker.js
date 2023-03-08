@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-import Dropzone from 'react-dropzone';
 import axios from 'axios';
-import Button from 'react-bootstrap/Button';
 
 
-export default function UploadPicker({example_input_file}) {
+export default function UploadPicker(props) {
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [uploadedUrl, setUploadedUrl] = useState(null);
 
-  function onDrop(files) {
-    setFile(files[0]);
+  function onChange(event) {
+    setFile(event.target.files[0]);
   }
 
   async function uploadFile() {
@@ -30,32 +28,20 @@ export default function UploadPicker({example_input_file}) {
 
   return (
     <div>
-      <div>Example of input file: {example_input_file}</div>
-      <Dropzone onDrop={onDrop}>
-        {({ getRootProps, getInputProps }) => (
-          <div className="" {...getRootProps()}>
-            <input {...getInputProps()} />
+      <div>Example of input file: {props.example_input_file}</div>
+        <input type="file" onChange={onChange} id="upload-picker" accept={props.accept} />
  
-            {file ?
-              <span><strong>Selected file:</strong> {file.name}</span> :
-              <Button variant="outline-secondary" >Choose file</Button>
-            }
-          </div>
-        )}
-      </Dropzone>
-
-
       {file &&
         <div>
-          <Button onClick={uploadFile} disabled={uploading} variant="secondary">
+          <button onClick={uploadFile} disabled={uploading} variant="secondary">
             {uploading ? 'Uploading...' : 'Upload'}
-          </Button>
+          </button>
         </div>
       }
 
       {uploadedUrl &&
         <div>
-          <video src={uploadedUrl} controls />
+          <img src={uploadedUrl} alt="Uploaded file" />
         </div>
       }
     </div>
