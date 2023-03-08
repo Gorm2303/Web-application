@@ -4,7 +4,7 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 
 
-function VideoUpload(props) {
+export default function UploadPicker({example_input_file}) {
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [uploadedUrl, setUploadedUrl] = useState(null);
@@ -30,15 +30,14 @@ function VideoUpload(props) {
 
   return (
     <div>
-      <h1>Video Upload</h1>
-
+      <div>Example of input file: {example_input_file}</div>
       <Dropzone onDrop={onDrop}>
         {({ getRootProps, getInputProps }) => (
           <div className="" {...getRootProps()}>
             <input {...getInputProps()} />
  
             {file ?
-              <p><strong>Selected file:</strong> {file.name}</p> :
+              <span><strong>Selected file:</strong> {file.name}</span> :
               <Button variant="outline-secondary" >Choose file</Button>
             }
           </div>
@@ -61,12 +60,4 @@ function VideoUpload(props) {
       }
     </div>
   );
-}
-
-export default function App() {
-    return (
-        <div>
-            <VideoUpload/>
-        </div>
-    )
 }

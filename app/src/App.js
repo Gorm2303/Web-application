@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import CatalogPage from "./CatalogPage";
-import UploadPage from "./UploadPage";
-import PlayerPage from "./PlayerPage";
+import CatalogPage from "./catalog_pages/CatalogPage";
+import UploadPage from "./upload_pages/UploadPage";
+import PlayerPage from "./player_pages/PlayerPage";
 
 
 import Button from 'react-bootstrap/Button';
