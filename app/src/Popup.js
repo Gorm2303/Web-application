@@ -23,15 +23,17 @@ function Popup({active, metadata, onClose}) {
           <img width={400} src={'https://image.tmdb.org/t/p/original' + metadata.poster_path} alt={""}/>
           <div>
             <table>
-              <tr className='smallInfo'>
-                <td className='singleText'>Release</td>
-                <td className='singleText'>Length</td>
-                <td className='description'>description</td>
-              </tr>
-              <tr className='smallInfo'>
-                <td className='singleText'>Genre</td>
-                <td className='singleText'>Release</td>
-              </tr>
+              <tbody>
+                <tr className='smallInfo'>
+                  <td className='singleText'>Release</td>
+                  <td className='singleText'>Length</td>
+                  <td className='description'>description</td>
+                </tr>
+                <tr className='smallInfo'>
+                  <td className='singleText'>Genre</td>
+                  <td className='singleText'>Release</td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>
