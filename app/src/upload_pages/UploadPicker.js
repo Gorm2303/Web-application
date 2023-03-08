@@ -19,6 +19,7 @@ export default function UploadPicker(props) {
 
       const response = await axios.post('/api/v1/video', formData);
       setUploadedUrl(response.data.url);
+      props.onUpload(response.data.url);
     } catch (error) {
       console.error(error);
     } finally {
@@ -41,7 +42,10 @@ export default function UploadPicker(props) {
 
       {uploadedUrl &&
         <div>
-          <img src={uploadedUrl} alt="Uploaded file" />
+          {props.accept === "image/*" ?  
+          <img src={uploadedUrl} alt="Uploaded poster" /> :
+          <video src={uploadedUrl} alt="Uploaded video"/>
+          }
         </div>
       }
     </div>

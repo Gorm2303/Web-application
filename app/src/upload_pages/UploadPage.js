@@ -49,12 +49,12 @@ export default function Form() {
     { label: 'Thriller', value: 'thriller' },
   ];
 
-  const handlePosterChange = (event) => {
-    setPoster(event.target.value);
+  function handlePosterChange(url) {
+    setPoster(url);
   } 
 
-  const handleVideoChange = (event) => {
-    setVideo(event.target.value);
+  function handleVideoChange(url) {
+    setVideo(url);
   } 
 
   return (
@@ -71,9 +71,9 @@ export default function Form() {
       <DatePicker selectedDate={date} handleDateChange={handleDateChange} />
       
       <label htmlFor="poster">Upload Poster</label>
-      <UploadPicker onChange={handlePosterChange} description={'Poster Upload'} accept={"image/*"} example_input_file={'.PNG'}/>
+      <UploadPicker onUpload={handlePosterChange} description={'Poster Upload'} accept={"image/*"} example_input_file={'.PNG'}/>
       <label htmlFor="video">Upload Video</label>
-      <UploadPicker onChange={handleVideoChange} description={'Video Upload'} accept={"video/*"} example_input_file={'.MP4'}/>
+      <UploadPicker onUpload={handleVideoChange} description={'Video Upload'} accept={"video/*"} example_input_file={'.MP4'}/>
       
       <label htmlFor="description">Description</label>
       <div>
