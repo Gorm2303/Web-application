@@ -1,7 +1,8 @@
 import UploadPicker from './UploadPicker.js'
 import './UploadPage.css';
 import React, { useState } from 'react';
-import DatePicker from './Datepicker';
+import DatePicker from './DatePicker';
+import GenrePicker from './GenrePicker.js';
 
 export default function Form() {
   const [title, setTitle] = useState('');
@@ -57,32 +58,28 @@ export default function Form() {
   } 
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='form' onSubmit={handleSubmit}>
+      <label htmlFor="title">Title</label>
       <div>
-        <label htmlFor="title">Title</label>
         <input type="text" id="title" value={title} onChange={handleTitleChange} />
       </div>
+      
+      <label htmlFor="genre">Genre</label>
+      <GenrePicker handleGenreChange={handleGenreChange} value={genre} genreOptions={genreOptions}/>
+      
+      <label htmlFor="date">Date</label>
+      <DatePicker selectedDate={date} handleDateChange={handleDateChange} />
+      
+      <label htmlFor="poster">Upload Poster</label>
+      <UploadPicker onChange={handlePosterChange} description={'Poster Upload'} example_input_file={'.PNG'}/>
+      <label htmlFor="video">Upload Video</label>
+      <UploadPicker onChange={handleVideoChange} description={'Video Upload'} example_input_file={'.MP4'}/>
+      
+      <label htmlFor="description">Description</label>
       <div>
-        <label htmlFor="genre">Genre</label>
-        <select multiple id="genre" value={genre} onChange={handleGenreChange}>
-          {genreOptions.map(option => (
-            <option key={option.value} value={option.value}>{option.label}</option>
-          ))}
-        </select>
-      </div>
-      <div>
-          <label htmlFor="date">Date</label>
-          <DatePicker selectedDate={date} handleDateChange={handleDateChange} />
-          
-          <label htmlFor="poster">Upload Poster</label>
-          <UploadPicker onChange={handlePosterChange} description={'Poster Upload'} example_input_file={'.PNG'}/>
-          <label htmlFor="video">Upload Video</label>
-          <UploadPicker onChange={handleVideoChange} description={'Video Upload'} example_input_file={'.MP4'}/>
-      </div>
-      <div>
-        <label htmlFor="description">Description</label>
         <textarea id="description" value={description} onChange={handleDescriptionChange}></textarea>
       </div>
+      
       <button type="submit">Submit</button>
     </form>
   );
