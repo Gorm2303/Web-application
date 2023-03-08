@@ -25,13 +25,12 @@ function Popup({active, metadata, onClose}) {
             <table>
               <tbody>
                 <tr className='smallInfo'>
-                  <td className='singleText'>Release</td>
-                  <td className='singleText'>Length</td>
-                  <td className='description'>description</td>
+                  <td className='singleText'><b>Release:</b> {metadata.release_date}</td>
+                  <td className='singleText'><b>Genre:</b> bla bla bla bla lba{}</td>
+                  <td className='description'><b>Description:</b> {metadata.overview}</td>
                 </tr>
                 <tr className='smallInfo'>
-                  <td className='singleText'>Genre</td>
-                  <td className='singleText'>Release</td>
+                  <td className='singleText'><b>Length:</b> 21{}</td>
                 </tr>
               </tbody>
             </table>
