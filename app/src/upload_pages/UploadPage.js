@@ -1,7 +1,7 @@
 import UploadPicker from './UploadPicker.js'
 import './UploadPage.css';
 import React, { useState } from 'react';
-import DatePicker from './DatePicker';
+import DatePicker from './Datepicker';
 import GenrePicker from './GenrePicker.js';
 
 export default function Form() {
