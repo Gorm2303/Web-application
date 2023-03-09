@@ -5,10 +5,6 @@
     align-items: center;
 }
 
-.form {
-    margin: 20px;
-}
-
 .form label {
     font-weight: bold;
     display: block;
@@ -33,25 +29,21 @@
 .form {
     width: 45%;
     margin: 0 auto;
-  }
-  
-  .form div {
-    margin-bottom: 10px;
-  }
-  
-  .form label {
+}
+
+.form label {
     display: block;
     margin-bottom: 5px;
-  }
-  
-  .form input[type="text"],
-  .form textarea, 
-  .genre-picker select {
+}
+
+.form input[type="text"],
+.form textarea, 
+.genre-picker select {
     width: 100%;
     padding: 1%;
-  }
-  
-  .form button {
+}
+
+.form button {
     margin-top: 10px;
-  }
+}
   
