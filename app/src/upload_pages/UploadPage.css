@@ -1,7 +1,57 @@
-.form label {
-    font-weight: bold;
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.form div {
-    
+.form {
+    margin: 20px;
 }
+
+.form label {
+    font-weight: bold;
+    display: block;
+}
+
+.form > div {
+    margin: 3%;
+}
+
+.submit {
+    padding: 1em;
+    font-size: 1em;
+    border-radius: 15%;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form {
+    width: 45%;
+    margin: 0 auto;
+  }
+  
+  .form div {
+    margin-bottom: 10px;
+  }
+  
+  .form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form input[type="text"],
+  .form textarea, 
+  .genre-picker select {
+    width: 100%;
+    padding: 1%;
+  }
+  
+  .form button {
+    margin-top: 10px;
+  }
+  
