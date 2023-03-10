@@ -77,12 +77,12 @@ export default function Form() {
         
         <div>
           <label htmlFor="poster">Upload Poster</label>
-          <UploadPicker onUpload={handlePosterChange} description={'Poster Upload'} accept={"image/*"} example_input_file={'.PNG'}/>
+          <UploadPicker onUpload={handlePosterChange} api={'poster'} description={'Poster Upload'} accept={"image/*"} example_input_file={'.PNG'}/>
         </div>
 
         <div>
           <label htmlFor="video">Upload Video</label>
-          <UploadPicker onUpload={handleVideoChange} description={'Video Upload'} accept={"video/*"} example_input_file={'.MP4'}/>
+          <UploadPicker onUpload={handleVideoChange} api={'video'} description={'Video Upload'} accept={"video/*"} example_input_file={'.MP4'}/>
         </div>
         
         <div>
