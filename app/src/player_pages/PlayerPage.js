@@ -1,9 +1,11 @@
-
+import VideoPlayer from './VideoPlayer';
 
 export default function App() {
+    const videoUrl = 'https://www.youtube.com/watch?v=d46Azg3Pm4c'
+
     return (
         <div>
-            <h1>Video Player</h1>
+            <VideoPlayer url={videoUrl} />
         </div>
     )
 }
