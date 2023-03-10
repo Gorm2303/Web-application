@@ -3,6 +3,7 @@ import './UploadPage.css';
 import React, { useState } from 'react';
 import DatePicker from './Datepicker';
 import GenrePicker from './GenrePicker.js';
+import axios from 'axios';
 
 export default function Form() {
   const [title, setTitle] = useState('');
@@ -28,17 +29,30 @@ export default function Form() {
     setDescription(event.target.value);
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log({
+  
+    const data = {
       title,
       genre,
       date,
       description,
       poster,
-      video,
-    });
-  }
+      video
+    };
+    console.log('Data send: ' + JSON.stringify(data));
+  
+    try {
+      const response = await axios.post('http://localhost:80/api/v1/videometadata', data, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      console.log('Response received: ' + JSON.stringify(response.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const genreOptions = [
     { label: 'Action', value: 'action' },
