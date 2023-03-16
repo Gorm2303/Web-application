@@ -46,3 +46,7 @@
   .singleText {
     padding: 0.5em;
   }
+
+  .genre span {
+    margin: 1%;
+  }

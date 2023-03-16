@@ -45,7 +45,7 @@ export default function Form() {
 
   
     try {
-      const response = await axios.post(`${process.env.REACT_APP_UPLOADER_VIDEOMETADATA_URL}`, data, {
+      const response = await axios.post(process.env.REACT_APP_UPLOADER_VIDEOMETADATA_URL, data, {
         headers: {
           'Content-Type': 'application/json'
         }

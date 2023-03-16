@@ -29,12 +29,16 @@ function Popup({active, metadata, onClose}) {
             <table>
               <tbody>
                 <tr className='smallInfo'>
-                  <td className='singleText'><b>Release:</b> {metadata.release_date}</td>
-                  <td className='singleText'><b>Genre:</b> bla bla bla bla lba{}</td>
-                  <td className='description'><b>Description:</b> {metadata.overview}</td>
+                  <td className='singleText'><b>Release: </b>{metadata.date}</td>
+                  <td className='genre'><b>Genre: </b>
+                    {metadata.genre.map((genre, index) => (
+                      <span key={index}>{genre}</span>
+                    ))}
+                  </td>
+                  <td className='description'><b>Description: </b>{metadata.description}</td>
                 </tr>
                 <tr className='smallInfo'>
-                  <td className='singleText'><b>Length:</b> 21{}</td>
+                  <td className='singleText'><b>Length: </b>??</td>
                 </tr>
               </tbody>
             </table>
