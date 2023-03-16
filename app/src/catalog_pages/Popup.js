@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Popup.css'
-import myImage from '../app/data/images/imageb65fa080-6d64-41d9-af0c-09007785ce74';
 
 
 function Popup({active, metadata, onClose}) {
@@ -23,8 +22,8 @@ function Popup({active, metadata, onClose}) {
         <div className="popup-content">
           <span className="close" onClick={handleClose}>&times;</span>
           <h1>{metadata.title}</h1>
-          <Link to={{ pathname: '/player', search: `?url=${metadata.video_path}` }}>
-            <img width={400} src={myImage} alt={""}/>
+          <Link to={{ pathname: '/player', search: `?url=${metadata.video}` }}>
+            <img width={400} src={metadata.poster} alt={""}/>
           </Link>
           <div>
             <table>

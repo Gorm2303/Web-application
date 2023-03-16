@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Popup from './Popup';
-import myImage from '../app/data/images/imageb65fa080-6d64-41d9-af0c-09007785ce74';
+import Poster from './Poster.js'
 
-function ImageList({ httpResponse }) {
+export default function ImageList({ httpResponse }) {
   const [videos, setVideos] = useState([]);
   const [PopupData, setPopupData] = useState([]);
   const [isPopup, setPopup] = useState(false);
@@ -20,21 +20,15 @@ function ImageList({ httpResponse }) {
     setPopup(false);
   }
 
+
   return (
     <div>
       {videos.map((video, index) => (
         <span key={video.poster}>
-          <img
-            onClick={() => handleClick(video)}
-            width={200}
-            src={myImage}
-            alt={`${index + 1}`}
-          />
+          <Poster onClick={handleClick} video={video} index={index}/>
         </span>
       ))}
       <Popup active={isPopup} metadata={PopupData} onClose={handleClosePopup} />
     </div>
   );
 }
-
-export default ImageList;
