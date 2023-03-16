@@ -17,7 +17,9 @@ export default function UploadPicker(props) {
       const formData = new FormData();
       formData.append('file', file);
 
-      const response = await axios.post(process.env.UPLOADER_URL$ + props.api, formData);
+      console.log(process.env.REACT_APP_UPLOADER_URL);
+
+      const response = await axios.post(process.env.REACT_APP_UPLOADER_URL + props.api, formData);
       setUploadedUrl(response.data.url);
       console.log(response);
       props.onUpload(response.data.url);

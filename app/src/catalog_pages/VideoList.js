@@ -10,7 +10,7 @@ export default function VideoList() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(process.env.CACHER_VIDEOMETADATA_URL);
+        const response = await axios.get(process.env.REACT_APP_CACHER_VIDEOMETADATA_URL);
         console.log(response);
         setHttpResponse(response);
       } catch (error) {
@@ -38,7 +38,7 @@ export default function VideoList() {
         <div>Could not fetch data.</div>
       ) : httpResponse.status === 200 ? (
         <div>
-          <ImageList httpResponse={httpResponse.data.results} />
+          <ImageList httpResponse={httpResponse.data} />
           <button onClick={handlePrevPage}>Previous</button>
           <button onClick={handleNextPage}>Next</button>
         </div>
