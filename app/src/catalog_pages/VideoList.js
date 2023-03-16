@@ -10,9 +10,9 @@ export default function VideoList() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=0c2928a0d441bf2ce59630be504699c4&language=en-US&page=${currentPage}`);
-        setHttpResponse(response);
+        const response = await axios.get(process.env.CACHER_VIDEOMETADATA_URL);
         console.log(response);
+        setHttpResponse(response);
       } catch (error) {
         console.log("Could not GET response in VideoList")
         setError(error);
