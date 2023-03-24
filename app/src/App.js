@@ -5,6 +5,7 @@ import UploadPage from "./upload_pages/UploadPage";
 import PlayerPage from "./player_pages/PlayerPage";
 import SignUpPage from './user_pages/SignUpPage';
 import LoginPage from './user_pages/LoginPage';
+import SubscriptionPage from './user_pages/SubscriptionPage';
 
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -55,6 +56,7 @@ export default function App() {
             <Route path='/player' element={<PlayerPage/>}/>
             <Route path='/signup' element={<SignUpPage/>}/>
             <Route path='/login' element={<LoginPage/>}/>
+            <Route path='/subscribe' element={<SubscriptionPage/>}/>
           </Routes>
       </BrowserRouter>
   );
