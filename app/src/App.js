@@ -3,7 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CatalogPage from "./catalog_pages/CatalogPage";
 import UploadPage from "./upload_pages/UploadPage";
 import PlayerPage from "./player_pages/PlayerPage";
-
+import SignUpPage from './user_pages/SignUpPage';
+import LoginPage from './user_pages/LoginPage';
 
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -52,6 +53,8 @@ export default function App() {
             <Route index element={<CatalogPage/>}/>
             <Route path='/upload' element={<UploadPage/>}/>
             <Route path='/player' element={<PlayerPage/>}/>
+            <Route path='/signup' element={<SignUpPage/>}/>
+            <Route path='/login' element={<LoginPage/>}/>
           </Routes>
       </BrowserRouter>
   );
