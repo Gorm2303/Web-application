@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 
 const SubscriptionPage = () => {
   const [subscriptionTypes, setSubscriptionTypes] = useState([]);
@@ -8,10 +9,14 @@ const SubscriptionPage = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const accessToken = localStorage.getItem('access_token');
+  const decodedToken = accessToken ? jwt_decode(accessToken) : null;
+  const userId = decodedToken ? decodedToken.sub : null;
+
   useEffect(() => {
     const fetchSubscriptionTypes = async () => {
       try {
-        const response = await fetch(process.env.SUBSCRIPTIONS_API_URL);
+        const response = await fetch(process.env.SUBSCRIPTION_TYPES_API_URL);
         const data = await response.json();
         setSubscriptionTypes(data);
       } catch (error) {
@@ -35,7 +40,7 @@ const SubscriptionPage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ user_id: '123', subscription_type_id: selectedSubscriptionType }),
+        body: JSON.stringify({ user_id: userId, subscription_type_id: selectedSubscriptionType }),
       });
 
       if (response.ok) {

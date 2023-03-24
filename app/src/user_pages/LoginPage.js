@@ -25,10 +25,11 @@ const LoginPage = () => {
         const data = await response.json();
         const accessToken = data.access_token;
         if (accessToken) {
-          navigate('/', { headers: { Authorization: `Bearer ${accessToken}` } });
+          localStorage.setItem('access_token', accessToken);
+          navigate('/');
         } else {
           setError('Failed to get access token.');
-        }
+        }        
       } else {
         const data = await response.json();
         setError(`Error ${response.status}: ${data.msg}`);
