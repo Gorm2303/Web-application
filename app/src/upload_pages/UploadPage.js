@@ -1,9 +1,9 @@
-import UploadPicker from './UploadPicker.js'
 import './UploadPage.css';
 import React, { useState } from 'react';
 import DatePicker from './Datepicker';
-import GenrePicker from './GenrePicker.js';
+import GenrePicker from './GenrePicker';
 import axios from 'axios';
+import FileUpload from './FileUpload';
 
 export default function Form() {
   const [title, setTitle] = useState('');
@@ -28,6 +28,14 @@ export default function Form() {
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
   }
+
+  function handlePosterUpload(url) {
+    setPoster(url);
+  } 
+
+  function handleVideoUpload(url) {
+    setVideo(url);
+  } 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -65,14 +73,6 @@ export default function Form() {
     { label: 'Thriller', value: 'thriller' },
   ];
 
-  function handlePosterChange(url) {
-    setPoster(url);
-  } 
-
-  function handleVideoChange(url) {
-    setVideo(url);
-  } 
-
   return (
     <div className='form-container'>
       <form className='form' onSubmit={handleSubmit}>
@@ -92,13 +92,13 @@ export default function Form() {
         </div>
         
         <div>
-          <label htmlFor="poster">Upload Poster</label>
-          <UploadPicker onUpload={handlePosterChange} api={'poster'} description={'Poster Upload'} accept={"image/*"} example_input_file={'.PNG'}/>
+          <label htmlFor="poster">Poster</label>
+          <FileUpload onUpload={handlePosterUpload} api={'poster'} description={'Poster Upload'} accept={['image/*']} example_input_file={'.PNG'}/>
         </div>
 
         <div>
-          <label htmlFor="video">Upload Video</label>
-          <UploadPicker onUpload={handleVideoChange} api={'video'} description={'Video Upload'} accept={"video/*"} example_input_file={'.MP4'}/>
+          <label htmlFor="video">Video</label>
+          <FileUpload onUpload={handleVideoUpload} api={'video'} description={'Video Upload'} accept={['video/*']} example_input_file={'.MP4'}/>
         </div>
         
         <div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Popup from './Popup';
-import Poster from './Poster.js'
+import Poster from './Poster'
 
 export default function ImageList({ httpResponse }) {
   const [videos, setVideos] = useState([]);
