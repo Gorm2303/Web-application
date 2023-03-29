@@ -1,26 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import ImageList from './ImageList';
+import { Alert } from 'react-bootstrap';
 
-export default function VideoList() {
+export default function VideoList({ httpResponse, error }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [httpResponse, setHttpResponse] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get(process.env.REACT_APP_CACHER_VIDEOMETADATA_URL);
-        console.log(response);
-        setHttpResponse(response);
-      } catch (error) {
-        console.log("Could not GET response in VideoList")
-        setError(error);
-      }
-    }
-
-    fetchData();
-  }, [currentPage]);
 
   function handleNextPage() {
     setCurrentPage(currentPage + 1);
@@ -35,7 +18,9 @@ export default function VideoList() {
   return (
     <div>
       {error ? (
-        <div>Could not fetch data.</div>
+        <Alert variant="danger">
+          Could not fetch data.
+        </Alert>
       ) : httpResponse.status === 200 ? (
         <div>
           <ImageList httpResponse={httpResponse.data} />

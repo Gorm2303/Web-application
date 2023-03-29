@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CatalogPage from "./catalog_pages/CatalogPage";
 import UploadPage from "./upload_pages/UploadPage";
@@ -20,7 +20,23 @@ function NavScrollExample() {
     sessionStorage.removeItem('access_token');
     setIsLoggedIn(false);
   };
+  const [searchQuery, setSearchQuery] = useState('');
+  const searchInput = useRef(null);
 
+  const handleSearchInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleSearch = () => {
+    window.location.href = `/search?q=${searchQuery}`;
+  };
+
+  const handleSearchKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
+  
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
@@ -36,14 +52,19 @@ function NavScrollExample() {
             <Nav.Link href="upload">Upload</Nav.Link>
             <Nav.Link href="player">Player</Nav.Link>
           </Nav>
-          <Form className="d-flex mx-auto">
+          <Form className="d-flex mx-auto" onKeyPress={handleSearchKeyPress} onSubmit={(e) => e.preventDefault()}>
             <Form.Control
+              ref={searchInput}
               type="search"
               placeholder="Search"
               className="me-2"
               aria-label="Search"
+              value={searchQuery}
+              onChange={handleSearchInputChange}
             />
-            <Button variant="outline-primary">Search</Button>
+            <Button variant="outline-primary" onClick={handleSearch}>
+              Search
+            </Button>
           </Form>
           {isLoggedIn ? (
             <Dropdown align="end">
@@ -80,7 +101,8 @@ export default function App() {
             <Route path='/player' element={<PlayerPage/>}/>
             <Route path='/signup' element={<SignUpPage/>}/>
             <Route path='/login' element={<LoginPage/>}/>
-            <Route path='/subscribe' element={<SubscriptionPage/>}/>
+            <Route path='/subscription' element={<SubscriptionPage/>}/>
+            <Route path='/search' element={<CatalogPage/>}/>
           </Routes>
       </BrowserRouter>
   );

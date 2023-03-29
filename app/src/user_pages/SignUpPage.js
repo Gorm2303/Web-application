@@ -26,7 +26,7 @@ const SignUpPage = () => {
         const accessToken = data.access_token;
         if (accessToken) {
           sessionStorage.setItem('access_token', accessToken);
-          navigate('/subscribe');
+          navigate('/subscription');
         } else {
           setError('Failed to get access token.');
         }        
