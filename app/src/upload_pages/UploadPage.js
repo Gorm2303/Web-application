@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import DatePicker from './Datepicker';
 import GenrePicker from './GenrePicker';
 import axios from 'axios';
-import FileUpload from './FileUpload';
+import UploadPicker from './UploadPicker';
 
 export default function Form() {
   const [title, setTitle] = useState('');
@@ -93,12 +93,12 @@ export default function Form() {
         
         <div>
           <label htmlFor="poster">Poster</label>
-          <FileUpload onUpload={handlePosterUpload} api={'poster'} description={'Poster Upload'} accept={['image/*']} example_input_file={'.PNG'}/>
+          <UploadPicker onUpload={handlePosterUpload} api={'poster'} description={'Poster Upload'} accept={['image/*']} example_input_file={'.PNG'}/>
         </div>
 
         <div>
           <label htmlFor="video">Video</label>
-          <FileUpload onUpload={handleVideoUpload} api={'video'} description={'Video Upload'} accept={['video/*']} example_input_file={'.MP4'}/>
+          <UploadPicker onUpload={handleVideoUpload} api={'video'} description={'Video Upload'} accept={['video/*']} example_input_file={'.MP4'}/>
         </div>
         
         <div>
