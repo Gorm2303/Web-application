@@ -9,7 +9,7 @@ const SubscriptionPage = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const accessToken = localStorage.getItem('access_token');
+  const accessToken = sessionStorage.getItem('access_token');
   const decodedToken = accessToken ? jwt_decode(accessToken) : null;
   const userId = decodedToken ? decodedToken.sub : null;
 
