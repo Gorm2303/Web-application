@@ -16,7 +16,7 @@ const SubscriptionPage = () => {
   useEffect(() => {
     const fetchSubscriptionTypes = async () => {
       try {
-        const response = await fetch(process.env.SUBSCRIPTION_TYPES_API_URL);
+        const response = await fetch(process.env.REACT_APP_SUBSCRIPTION_TYPES_API_URL);
         const data = await response.json();
         setSubscriptionTypes(data);
       } catch (error) {
@@ -35,7 +35,7 @@ const SubscriptionPage = () => {
     setError('');
 
     try {
-      const response = await fetch(process.env.SUBSCRIBE_API_URL, {
+      const response = await fetch(process.env.REACT_APP_SUBSCRIBE_API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

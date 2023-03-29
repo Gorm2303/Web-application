@@ -13,7 +13,7 @@ const SignUpPage = () => {
     setError('');
 
     try {
-      const response = await fetch(process.env.AUTH_SIGNUP_API_URL, {
+      const response = await fetch(process.env.REACT_APP_AUTH_SIGNUP_API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

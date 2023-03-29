@@ -13,8 +13,8 @@ export default function CatalogPage() {
       try {
         const searchQuery = searchParams.get('q');
         const endpoint = searchQuery
-          ? `${process.env.VIDEOMETADATA_URL}/search?q=${searchQuery}`
-          : process.env.VIDEOMETADATA_URL;
+          ? `${process.env.REACT_APP_VIDEOMETADATA_URL}/search?q=${searchQuery}`
+          : process.env.REACT_APP_VIDEOMETADATA_URL;
         const response = await axios.get(endpoint);
         setHttpResponse(response);
       } catch (error) {
