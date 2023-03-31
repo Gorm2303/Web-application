@@ -27,8 +27,9 @@ export default function UploadPicker(props) {
         formData.append('chunk', chunk);
         formData.append('chunks', chunks);
         formData.append('chunkIndex', i);
-        console.log("Sending data to: " + process.env.REACT_APP_UPLOADER_URL + props.api);
-        console.log(formData);
+        formData.append('filename', file.name)
+        console.log('Sending data to: ' + process.env.REACT_APP_API_ENDPOINT + props.api);
+        console.log('filename: ', file.name, 'chunk: ', chunk, ' chunks: ', chunks, 'chunkIndex: ', i);
 
         response = await axios.post(process.env.REACT_APP_UPLOADER_URL + props.api, formData, {
           onUploadProgress: (progressEvent) => {
@@ -51,7 +52,7 @@ export default function UploadPicker(props) {
   return (
     <div>
       <div>Example of input file: {props.example_input_file}</div>
-      <input type="file" onChange={onChange} id="upload-picker" accept={props.accept} />
+      <input type='file' onChange={onChange} id='upload-picker' accept={props.accept} />
 
       <div>
         <button type='button' onClick={uploadFile} disabled={!file || (file && progress > 0)}>
@@ -64,9 +65,9 @@ export default function UploadPicker(props) {
       {uploadedUrl &&
         <div>
           <p>File URL: {uploadedUrl}</p>
-          {props.accept === "image/*" ?  
-          <img src={uploadedUrl} alt="Uploaded poster" /> :
-          <video src={uploadedUrl} alt="Uploaded clip" />}
+          {props.accept === 'image/*' ?  
+          <img src={uploadedUrl} alt='Uploaded poster' /> :
+          <video src={uploadedUrl} alt='Uploaded clip' />}
         </div>
       }
     </div>
