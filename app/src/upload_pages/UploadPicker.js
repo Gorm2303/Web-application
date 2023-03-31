@@ -31,7 +31,7 @@ export default function UploadPicker(props) {
         console.log('Sending data to: ' + process.env.REACT_APP_API_ENDPOINT + props.api);
         console.log('filename: ', file.name, 'chunk: ', chunk, ' chunks: ', chunks, 'chunkIndex: ', i);
 
-        response = await axios.post(process.env.REACT_APP_UPLOADER_URL + props.api, formData, {
+        response = await axios.post(process.env.REACT_APP_API_ENDPOINT + props.api, formData, {
           onUploadProgress: (progressEvent) => {
             const percentCompleted = Math.round(((1 + uploadedChunks) / chunks) * 100);
               setProgress(percentCompleted)
@@ -66,8 +66,8 @@ export default function UploadPicker(props) {
         <div>
           <p>File URL: {uploadedUrl}</p>
           {props.accept === 'image/*' ?  
-          <img src={uploadedUrl} alt='Uploaded poster' /> :
-          <video src={uploadedUrl} alt='Uploaded clip' />}
+          <img width={400} src={uploadedUrl} alt='Uploaded poster' /> :
+          <video width={400} src={uploadedUrl} alt='Uploaded clip' />}
         </div>
       }
     </div>
