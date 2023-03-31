@@ -49,8 +49,6 @@ export default function Form() {
       video
     };
     console.log('Data send: ' + JSON.stringify(data));
-    console.log(`${process.env.REACT_APP_UPLOADER_VIDEOMETADATA_URL}`);
-
   
     try {
       const response = await axios.post(process.env.REACT_APP_UPLOADER_VIDEOMETADATA_URL, data, {
@@ -58,7 +56,7 @@ export default function Form() {
           'Content-Type': 'application/json'
         }
       });
-      console.log('Response received: ' + JSON.stringify(response.data));
+      console.log(response);
     } catch (error) {
       console.error(error);
     }
