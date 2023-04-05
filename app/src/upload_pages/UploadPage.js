@@ -29,16 +29,17 @@ export default function Form() {
     setDescription(event.target.value);
   }
 
-  function handlePosterUpload(url) {
-    setPoster(url);
+  const handlePosterUpload = (fileUrl) => {
+    setPoster(fileUrl);
+    console.log("Poster is set: " + fileUrl);
   } 
 
-  function handleVideoUpload(url) {
-    setVideo(url);
+  const handleVideoUpload = (fileUrl) => {
+    setVideo(fileUrl);
+    console.log("Video is set: " + fileUrl);
   } 
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
   
     const data = {
       title,

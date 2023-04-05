@@ -5,7 +5,7 @@ import axios from 'axios';
 export default function UploadPicker(props) {
   const [file, setFile] = useState(null);
   const [progress, setProgress] = useState(0);
-  const [uploadedUrl, setUploadedUrl] = useState(null);
+  const [uploadedUrl, setUploadedUrl] = useState('');
 
   function onChange(event) {
     setFile(event.target.files[0]);
@@ -41,9 +41,9 @@ export default function UploadPicker(props) {
         uploadedChunks++;
       }
       console.log(response);
+      setUploadedUrl(response.data.url);
+      props.onUpload(response.data.url);
 
-      setUploadedUrl(response.data.url)
-      props.onUpload(uploadedUrl);
     } catch (error) {
       console.error(error);
     } 
