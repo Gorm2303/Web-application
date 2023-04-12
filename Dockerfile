@@ -13,6 +13,12 @@ RUN npm install
 # Copy the remaining application files to the container
 COPY app .
 
+# Setting environment variable for npm test to exit when it is done
+ENV CI=true
+
+# Test the React app 
+RUN npm test
+
 # Build the React app for production
 RUN npm run build
 
