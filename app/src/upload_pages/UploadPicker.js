@@ -6,12 +6,15 @@ export default function UploadPicker(props) {
   const [file, setFile] = useState(null);
   const [progress, setProgress] = useState(0);
   const [uploadedUrl, setUploadedUrl] = useState('');
+  const [uploadError, setUploadError] = useState(null);
+
 
   function onChange(event) {
     setFile(event.target.files[0]);
   }
 
   async function uploadFile() {
+    setUploadError(null);
     try {
       const chunkSize = 1024 * 1024; // 1MB chunks
       const chunks = Math.ceil(file.size / chunkSize);
@@ -46,13 +49,14 @@ export default function UploadPicker(props) {
 
     } catch (error) {
       console.error(error);
+      setUploadError(error.message);
     } 
   }
 
   return (
     <div>
       <div>Example of input file: {props.example_input_file}</div>
-      <input type='file' onChange={onChange} id='upload-picker' accept={props.accept} />
+      <input type='file' onChange={onChange} id='upload-picker' accept={props.accept} data-testid='upload-picker' />
 
       <div>
         <button type='button' onClick={uploadFile} disabled={!file || (file && progress > 0)}>
@@ -61,6 +65,8 @@ export default function UploadPicker(props) {
       </div>
 
       {progress > 0 && <div>{progress}% uploaded</div>}
+
+      {uploadError && <p>{uploadError}</p>}
 
       {uploadedUrl &&
         <div>
