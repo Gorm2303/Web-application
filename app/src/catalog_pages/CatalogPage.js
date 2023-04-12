@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import VideoList from './VideoList';
@@ -7,23 +7,30 @@ export default function CatalogPage() {
   const [httpResponse, setHttpResponse] = useState([]);
   const [error, setError] = useState(null);
   const [searchParams] = useSearchParams();
+  const accessToken = sessionStorage.getItem('access_token');
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const searchQuery = searchParams.get('q');
-        const endpoint = searchQuery
-          ? `${process.env.REACT_APP_VIDEOMETADATA_URL}/search?q=${searchQuery}`
-          : process.env.REACT_APP_VIDEOMETADATA_URL;
-        const response = await axios.get(endpoint);
-        setHttpResponse(response);
-      } catch (error) {
-        setError(error);
-      }
+  const fetchData = useCallback(async (token, params) => {
+    try {
+      const searchQuery = params.get('q');
+      const endpoint = searchQuery
+        ? `${process.env.REACT_APP_VIDEOMETADATA_URL}/search?q=${searchQuery}`
+        : process.env.REACT_APP_VIDEOMETADATA_URL;
+      const response = await axios.get(endpoint, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      setHttpResponse(response);
+    } catch (error) {
+      setError(error);
     }
-
-    fetchData();
-  }, [searchParams]);
+  }, []);
+  
+  useEffect(() => {
+    fetchData(accessToken, searchParams);
+  }, [fetchData, accessToken, searchParams]);
+  
 
   return (
     <div>

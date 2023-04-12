@@ -40,7 +40,7 @@ const SubscriptionPage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ user_id: userId, subscription_type_id: selectedSubscriptionType }),
+        body: JSON.stringify({ user_id: userId, subscription_type_id: parseInt(selectedSubscriptionType) }),
       });
 
       if (response.ok) {

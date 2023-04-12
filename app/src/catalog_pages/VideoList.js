@@ -19,7 +19,9 @@ export default function VideoList({ httpResponse, error }) {
     <div>
       {error ? (
         <Alert variant="danger">
-          Could not fetch data.
+          {error.response && error.response.data.msg
+            ? `Error ${error.response.status}: ${error.response.data.msg}`
+            : "Could not fetch data."}
         </Alert>
       ) : httpResponse.status === 200 ? (
         <div>
