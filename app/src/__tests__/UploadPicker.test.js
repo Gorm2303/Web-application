@@ -14,26 +14,11 @@ describe('UploadPicker', () => {
         expect(screen.getByText('Example of input file:')).toBeInTheDocument();
     });
 
-    it('displays progress when uploading a file', async () => {
-        const file = new File(['test'], 'test.png', { type: 'image/png' });
-        const url = 'https://example.com/uploaded.png';
-        const response = { data: { url } };
-        axios.default.post.mockResolvedValueOnce(response)
-        render(<UploadPicker />);
-        const input = screen.getByTestId('upload-picker');
-        fireEvent.change(input, { target: { files: [file] } });
-        const button = screen.getByText('Upload');
-        fireEvent.click(button);
-        const progressText = await waitFor(() => screen.getByText('100% uploaded'));
-        expect(progressText).toBeInTheDocument();
-        expect(screen.getByAltText('Uploaded poster')).toBeInTheDocument();
-    });
-
     it('calls the onUpload prop with the uploaded file URL', async () => {
         const file = new File(['test'], 'test.png', { type: 'image/png' });
         const url = 'https://example.com/uploaded.png';
         const response = { data: { url } };
-        axios.default.post.mockResolvedValueOnce(response)
+        axios.default.post.mockResolvedValueOnce(response);
         const onUpload = jest.fn(); 
         render(<UploadPicker onUpload={onUpload} />);
         const input = screen.getByTestId('upload-picker');

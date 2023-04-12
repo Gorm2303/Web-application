@@ -48,7 +48,7 @@ export default function UploadPicker(props) {
       props.onUpload(response.data.url);
 
     } catch (error) {
-      console.error(error);
+      console.log(error);
       setUploadError(error.message);
     } 
   }
