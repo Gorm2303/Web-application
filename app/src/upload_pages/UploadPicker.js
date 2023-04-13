@@ -18,7 +18,6 @@ export default function UploadPicker(props) {
     try {
       const chunkSize = 1024 * 1024; // 1MB chunks
       const chunks = Math.ceil(file.size / chunkSize);
-      let uploadedChunks = 0;
       let response;
 
       for (let i = 0; i < chunks; i++) {
@@ -36,12 +35,11 @@ export default function UploadPicker(props) {
 
         response = await axios.post(process.env.REACT_APP_API_ENDPOINT + props.api, formData, {
           onUploadProgress: (progressEvent) => {
-            const percentCompleted = Math.round(((1 + uploadedChunks) / chunks) * 100);
+            const percentCompleted = Math.round(((1 + i) / chunks) * 100);
               setProgress(percentCompleted)
             
           },
         });
-        uploadedChunks++;
       }
       console.log(response);
       setUploadedUrl(response.data.url);
@@ -73,7 +71,7 @@ export default function UploadPicker(props) {
           <p>File URL: {uploadedUrl}</p>
           {props.accept === 'image/*' ?  
           <img width={400} src={uploadedUrl} alt='Uploaded poster' /> :
-          <video width={400} src={uploadedUrl} alt='Uploaded clip' />}
+          <video width={400} src={uploadedUrl} controls alt='Uploaded clip' />}
         </div>
       }
     </div>
