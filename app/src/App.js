@@ -40,7 +40,7 @@ function NavScrollExample() {
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
-        <Navbar.Brand href="#">TV2</Navbar.Brand>
+        <Navbar.Brand href="/">TV2</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -96,13 +96,13 @@ export default function App() {
       <BrowserRouter>
           <div><NavScrollExample/></div>
           <Routes>
-            <Route index element={<CatalogPage/>}/>
-            <Route path='/upload' element={<UploadPage/>}/>
-            <Route path='/player' element={<PlayerPage/>}/>
-            <Route path='/signup' element={<SignUpPage/>}/>
-            <Route path='/login' element={<LoginPage/>}/>
-            <Route path='/subscription' element={<SubscriptionPage/>}/>
-            <Route path='/search' element={<CatalogPage/>}/>
+            <Route index element={<CatalogPage key="index" />} />
+            <Route path="/upload" element={<UploadPage />} />
+            <Route path="/player" element={<PlayerPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/subscription" element={<SubscriptionPage />} />
+            <Route path="/search" element={<CatalogPage key={window.location.search} />} />
           </Routes>
       </BrowserRouter>
   );

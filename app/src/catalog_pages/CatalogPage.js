@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import VideoList from './VideoList';
 
@@ -8,30 +8,33 @@ export default function CatalogPage() {
   const [error, setError] = useState(null);
   const [searchParams] = useSearchParams();
   const accessToken = sessionStorage.getItem('access_token');
+  const navigate = useNavigate();
 
-  const fetchData = useCallback(async (token, params) => {
+  const fetchData = useCallback(async () => {
     try {
-      const searchQuery = params.get('q');
+      const searchQuery = searchParams.get('q');
       const endpoint = searchQuery
-        ? `${process.env.REACT_APP_VIDEOMETADATA_URL}/search?q=${searchQuery}`
-        : process.env.REACT_APP_VIDEOMETADATA_URL;
+        ? `${process.env.REACT_APP_CACHER_VIDEOMETADATA_URL}/search?q=${searchQuery}`
+        : process.env.REACT_APP_CACHER_VIDEOMETADATA_URL;
       const response = await axios.get(endpoint, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       });
-  
-      setHttpResponse(response);
-    } catch (error) {
-      setError(error);
-    }
-  }, []);
-  
-  useEffect(() => {
-    fetchData(accessToken, searchParams);
-  }, [fetchData, accessToken, searchParams]);
-  
 
+      setHttpResponse(response.data);
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        navigate('/login');
+      } else {
+        setError(error);
+      }
+    }
+  }, [accessToken, searchParams, navigate]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
   return (
     <div>
       <h1>Catalog</h1>
@@ -39,3 +42,6 @@ export default function CatalogPage() {
     </div>
   );
 }
+
+
+
