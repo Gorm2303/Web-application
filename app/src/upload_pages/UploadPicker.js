@@ -7,6 +7,7 @@ export default function UploadPicker(props) {
   const [progress, setProgress] = useState(0);
   const [uploadedUrl, setUploadedUrl] = useState('');
   const [uploadError, setUploadError] = useState(null);
+  const accessToken = sessionStorage.getItem('access_token');
 
 
   function onChange(event) {
@@ -38,6 +39,8 @@ export default function UploadPicker(props) {
             const percentCompleted = Math.round(((1 + i) / chunks) * 100);
               setProgress(percentCompleted)
             
+          }, headers: {
+            Authorization: `Bearer ${accessToken}`,
           },
         });
       }
