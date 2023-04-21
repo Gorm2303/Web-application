@@ -22,7 +22,7 @@ export default function CatalogPage() {
         },
       });
 
-      setHttpResponse(response.data);
+      setHttpResponse(response);
     } catch (error) {
       if (error.response && error.response.status === 401) {
         navigate('/login');

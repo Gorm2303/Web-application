@@ -12,6 +12,7 @@ export default function Form() {
   const [description, setDescription] = useState('');
   const [poster, setPoster] = useState(''); 
   const [video, setVideo] = useState('');
+  const accessToken = sessionStorage.getItem('access_token');
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -54,7 +55,8 @@ export default function Form() {
     try {
       const response = await axios.post(process.env.REACT_APP_UPLOADER_VIDEOMETADATA_URL, data, {
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
         }
       });
       console.log(response);
