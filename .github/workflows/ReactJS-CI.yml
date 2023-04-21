@@ -16,6 +16,9 @@ jobs:
 
     - name: Build Docker image
       run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/ba-web-application .
+      
+    - name: Install npm 
+      run: docker run ${{ secrets.DOCKERHUB_USERNAME }}/ba-web-application npm install
 
     - name: Run tests
       run: docker run -e CI=true ${{ secrets.DOCKERHUB_USERNAME }}/ba-web-application npm test 
