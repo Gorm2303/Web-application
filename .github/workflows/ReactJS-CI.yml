@@ -18,7 +18,7 @@ jobs:
       run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/ba-web-application .
       
     - name: Make testable dockerfile 
-      run: .\.github\workflows\make_testable_dockerfile.sh ../../Dockerfile
+      run: ./.github/workflows/make_testable_dockerfile.sh ../../Dockerfile
 
     - name: Build testable Docker image
       run: docker build -t testable-docker-image -f ./.github/workflows/testable_dockerfile .
