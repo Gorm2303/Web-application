@@ -3,7 +3,7 @@ import { Card, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 
-const SubscriptionPage = () => {
+const SubscriptionPage = (props) => {
   const [subscriptionTypes, setSubscriptionTypes] = useState([]);
   const [selectedSubscriptionType, setSelectedSubscriptionType] = useState('');
   const [error, setError] = useState('');
@@ -50,6 +50,7 @@ const SubscriptionPage = () => {
         if (accessToken) {
           sessionStorage.removeItem('access_token');
           sessionStorage.setItem('access_token', accessToken);
+          props.setIsSubscriber(true);
           navigate('/');
         } else {
           setError('Failed to get access token.');
