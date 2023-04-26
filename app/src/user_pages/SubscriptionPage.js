@@ -39,12 +39,21 @@ const SubscriptionPage = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify({ user_id: userId, subscription_type_id: parseInt(selectedSubscriptionType) }),
       });
 
       if (response.ok) {
-        navigate('/');
+        const data = await response.json();
+        const accessToken = data.access_token;
+        if (accessToken) {
+          sessionStorage.removeItem('access_token');
+          sessionStorage.setItem('access_token', accessToken);
+          navigate('/');
+        } else {
+          setError('Failed to get access token.');
+        }        
       } else {
         const data = await response.json();
         setError(`Error ${response.status}: ${data.msg}`);
