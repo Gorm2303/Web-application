@@ -16,12 +16,12 @@ export default function App() {
   const accessToken = sessionStorage.getItem('access_token');
   const decodedToken = accessToken ? jwt_decode(accessToken) : null;
   const isAdmin = decodedToken && decodedToken.role === 'admin';
+  const [isSubscriber, setIsSubscriber] = useState(decodedToken && decodedToken.role === 'subscriber');
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    !!sessionStorage.getItem('access_token')
+  );
 
   function NavScroll() {
-    const [isLoggedIn, setIsLoggedIn] = useState(
-      !!sessionStorage.getItem('access_token')
-    );
-
     const handleLogout = () => {
       sessionStorage.removeItem('access_token');
       setIsLoggedIn(false);
@@ -46,7 +46,7 @@ export default function App() {
     return (
       <Navbar bg="light" expand="lg">
         <Container fluid>
-          <Navbar.Brand href="#">TV2</Navbar.Brand>
+          <Navbar.Brand href="/">TV2</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -56,8 +56,8 @@ export default function App() {
             >
               <Nav.Link href="/">Catalog</Nav.Link>
               {isAdmin && <Nav.Link href="upload">Upload</Nav.Link>}
-              <Nav.Link href="player">Player</Nav.Link>
             </Nav>
+            {(isSubscriber || isAdmin) && 
             <Form className="d-flex mx-auto" onKeyPress={handleSearchKeyPress} onSubmit={(e) => e.preventDefault()}>
               <Form.Control
                 ref={searchInput}
@@ -72,9 +72,11 @@ export default function App() {
                 Search
               </Button>
             </Form>
+            }
             {isLoggedIn ? (
               <Dropdown align="end">
                 <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                  Settings
                   <i className="bi bi-list"></i>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
@@ -103,11 +105,11 @@ export default function App() {
           <Routes>
             <Route index element={<CatalogPage key="index" />} />
             {isAdmin && <Route path='/upload' element={<UploadPage/>} />}
-            <Route path="/player" element={<PlayerPage />} />
-            <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/subscription" element={<SubscriptionPage />} />
-            <Route path="/search" element={<CatalogPage key={window.location.search} />} />
+            {isLoggedIn && <Route path="/player" element={<PlayerPage />} />}
+            {!isLoggedIn && <Route path="/signup" element={<SignUpPage setIsLoggedIn={setIsLoggedIn}/>} />}
+            {!isLoggedIn && <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn}/>} />}
+            {isLoggedIn && <Route path="/subscription" element={<SubscriptionPage setIsSubscriber={setIsSubscriber}/>} />}
+            {isLoggedIn && <Route path="/search" element={<CatalogPage key={window.location.search} />} />}
           </Routes>
       </BrowserRouter>
   );
