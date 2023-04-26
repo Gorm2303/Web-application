@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 
-const LoginPage = () => {
+const LoginPage = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -26,6 +26,7 @@ const LoginPage = () => {
         const accessToken = data.access_token;
         if (accessToken) {
           sessionStorage.setItem('access_token', accessToken);
+          props.setIsLoggedIn(true);
           navigate('/');
         } else {
           setError('Failed to get access token.');
