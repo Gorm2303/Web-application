@@ -16,11 +16,15 @@ export default function CatalogPage() {
       const endpoint = searchQuery
         ? `${process.env.REACT_APP_CACHER_VIDEOMETADATA_URL}/search?q=${searchQuery}`
         : process.env.REACT_APP_CACHER_VIDEOMETADATA_URL;
-      const response = await axios.get(endpoint, {
-        headers: {
+        
+      let headers = {};
+      if (accessToken) {
+        headers = {
           Authorization: `Bearer ${accessToken}`,
-        },
-      });
+        };
+      }
+      
+      const response = await axios.get(endpoint, { headers });
 
       setHttpResponse(response);
     } catch (error) {
