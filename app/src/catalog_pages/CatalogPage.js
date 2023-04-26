@@ -30,6 +30,8 @@ export default function CatalogPage() {
     } catch (error) {
       if (error.response && error.response.status === 401) {
         navigate('/login');
+      } else if (error.response && error.response.status === 403) {
+        navigate('/subscription');
       } else {
         setError(error);
       }
