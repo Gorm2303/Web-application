@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 export default function Poster(props) {
   const [imageError, setImageError] = useState(false);
-  
+  const errorImage = require('../noImageAvailable.jpg');
+
   const handleImageError = () => {
     setImageError(true);
   }
@@ -10,7 +11,7 @@ export default function Poster(props) {
   return (
     <span>
       {imageError ? (
-        <img src={'/data/images/imageb65fa080-6d64-41d9-af0c-09007785ce74'} width={200} alt="Fallback poster" />
+        <img src={errorImage} width={200} alt="Fallback poster" />
       ) : (
         <img
           onClick={() => props.onClick(props.video)}
