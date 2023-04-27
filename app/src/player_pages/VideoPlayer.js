@@ -7,7 +7,17 @@ const VideoPlayer = ({ url }) => {
       <ReactPlayer 
       url={url} 
       width='100%' 
-      height='95vh' />
+      height='95vh' 
+      controls
+      config={{ file: { 
+        attributes: {
+          controlsList: "nodownload",
+          autoplay: "true",
+        }
+      }}}
+      
+      
+      />
     </div>
   );
 };
