@@ -5,6 +5,12 @@ import { Modal, Button, Table, Badge } from 'react-bootstrap';
 
 function Popup({active, metadata, onClose}) {
   const [showPopup, setShowPopup] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  const errorImage = require('../noImageAvailable.jpg');
+
+  const handleImageError = () => {
+    setImageError(true);
+  }
 
   useEffect(() => {
     setShowPopup(active);
@@ -23,7 +29,14 @@ return (
     </Modal.Header>
     <Modal.Body>
       <Link to={{ pathname: '/player', search: `?url=${metadata.video}` }}>
-        <img className="img-fluid" src={metadata.poster} alt={""} />
+      {imageError ? (
+        <img 
+        src={errorImage} 
+        alt="Fallback poster" 
+        />
+      ) : (
+        <img className="img-fluid" src={metadata.poster} alt={""} onError={handleImageError} />
+      )}
       </Link>
       <div className="mt-3">
         <Table>

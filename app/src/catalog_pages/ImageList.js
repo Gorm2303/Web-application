@@ -24,7 +24,7 @@ export default function ImageList({ httpResponse }) {
   return (
     <div>
       {videos.map((video, index) => (
-        <span key={video.poster}>
+        <span key={video.poster} style={{padding: "10px"}}>
           <Poster onClick={handleClick} video={video} index={index}/>
         </span>
       ))}
