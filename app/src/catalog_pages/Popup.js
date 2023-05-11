@@ -18,6 +18,7 @@ function Popup({active, metadata, onClose}) {
 
   function handleClose() {
     setShowPopup(false);
+    setImageError(false);
     onClose();
   }
 
@@ -35,7 +36,12 @@ return (
         alt="Fallback poster" 
         />
       ) : (
-        <img className="img-fluid" src={metadata.poster} alt={""} onError={handleImageError} />
+        <img 
+        className="img-fluid" 
+        src={metadata.poster} 
+        alt={""} 
+        onError={handleImageError} 
+        />
       )}
       </Link>
       <div className="mt-3">
