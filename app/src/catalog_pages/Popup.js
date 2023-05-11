@@ -49,7 +49,7 @@ return (
           <tbody>
             <tr>
               <td><b>Release:</b></td>
-              <td>{metadata.date}</td>
+              <td>{metadata.date.slice(0, metadata.date.indexOf('T'))}</td>
             </tr>
             <tr>
               <td><b>Genre:</b></td>
