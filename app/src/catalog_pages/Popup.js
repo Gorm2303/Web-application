@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Modal, Button, Table, Badge } from 'react-bootstrap';
-
+import LoginContext from '../LoginContext';
 
 function Popup({active, metadata, onClose}) {
   const [showPopup, setShowPopup] = useState(false);
   const [imageError, setImageError] = useState(false);
   const errorImage = require('../noImageAvailable.jpg');
+  const adminContext = useContext(LoginContext);
 
   const handleImageError = () => {
     setImageError(true);
@@ -29,6 +30,7 @@ return (
       <Modal.Title>{metadata.title}</Modal.Title>
     </Modal.Header>
     <Modal.Body>
+      {adminContext && <Button>Edit Movie</Button>}
       <Link to={{ pathname: '/player', search: `?url=${metadata.video}` }}>
       {imageError ? (
         <img 
