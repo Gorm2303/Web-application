@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import CatalogPage from "./catalog_pages/CatalogPage";
 import UploadPage from "./upload_pages/UploadPage";
 import PlayerPage from "./player_pages/PlayerPage";
@@ -10,6 +10,7 @@ import jwt_decode from 'jwt-decode';
 
 import { Navbar, Container, Nav, Form, Button, Dropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AdminContext from './AdminContext.js'; 
 
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
   );
 
   function NavScroll() {
+    const navigate = useNavigate();
     const handleLogout = () => {
       sessionStorage.removeItem('access_token');
       setIsLoggedIn(false);
@@ -42,6 +44,11 @@ export default function App() {
         handleSearch();
       }
     };
+
+    const handleUploadClick = () => {
+      sessionStorage.setItem('requestType', 'POST');
+      navigate('/upload');
+    };
     
     return (
       <Navbar bg="light" expand="lg">
@@ -55,7 +62,7 @@ export default function App() {
               navbarScroll
             >
               <Nav.Link href="/">Catalog</Nav.Link>
-              {isAdmin && <Nav.Link href="upload">Upload</Nav.Link>}
+              {isAdmin && <Nav.Link onClick={handleUploadClick}>Upload</Nav.Link>}
             </Nav>
             {(isSubscriber || isAdmin) && 
             <Form className="d-flex mx-auto" onKeyPress={handleSearchKeyPress} onSubmit={(e) => e.preventDefault()}>
@@ -100,17 +107,19 @@ export default function App() {
   }
 
   return (
+    <AdminContext.Provider value={isAdmin}>
       <BrowserRouter>
           <div><NavScroll/></div>
           <Routes>
             <Route index element={<CatalogPage key="index" />} />
+            {isLoggedIn && <Route path="/search" element={<CatalogPage key={window.location.search} />} />}
             {isAdmin && <Route path='/upload' element={<UploadPage/>} />}
             {isLoggedIn && <Route path="/player" element={<PlayerPage />} />}
             {!isLoggedIn && <Route path="/signup" element={<SignUpPage setIsLoggedIn={setIsLoggedIn}/>} />}
             {!isLoggedIn && <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn}/>} />}
             {isLoggedIn && <Route path="/subscription" element={<SubscriptionPage setIsSubscriber={setIsSubscriber}/>} />}
-            {isLoggedIn && <Route path="/search" element={<CatalogPage key={window.location.search} />} />}
           </Routes>
       </BrowserRouter>
+    </AdminContext.Provider>
   );
 }
