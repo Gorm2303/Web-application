@@ -3,7 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import VideoList from './VideoList';
 
-export default function CatalogPage( props ) {
+export default function CatalogPage() {
   const [httpResponse, setHttpResponse] = useState([]);
   const [error, setError] = useState(null);
   const [searchParams] = useSearchParams();

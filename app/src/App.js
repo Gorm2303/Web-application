@@ -7,7 +7,6 @@ import SignUpPage from './user_pages/SignUpPage';
 import LoginPage from './user_pages/LoginPage';
 import SubscriptionPage from './user_pages/SubscriptionPage';
 import jwt_decode from 'jwt-decode';
-import LoginContext from './LoginContext.js'
 
 import { Navbar, Container, Nav, Form, Button, Dropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -104,9 +103,7 @@ export default function App() {
       <BrowserRouter>
           <div><NavScroll/></div>
           <Routes>
-            <LoginContext.Provider isAdmin={isAdmin}>
-              <Route index element={<CatalogPage key="index" />} />
-            </LoginContext.Provider>
+            <Route index element={<CatalogPage key="index" />} />
             {isAdmin && <Route path='/upload' element={<UploadPage/>} />}
             {isLoggedIn && <Route path="/player" element={<PlayerPage />} />}
             {!isLoggedIn && <Route path="/signup" element={<SignUpPage setIsLoggedIn={setIsLoggedIn}/>} />}
