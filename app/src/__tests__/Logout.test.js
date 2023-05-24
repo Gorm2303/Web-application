@@ -9,11 +9,7 @@ describe('<App />', () => {
   it('logs out correctly', () => {
     sessionStorage.setItem('access_token', 'test_token');
     
-    const { getByText } = render(
-      <Router>
-        <App />
-      </Router>
-    );
+    const { getByText } = render(<App />);
     
     fireEvent.click(getByText('Settings'));
     fireEvent.click(getByText('Log out'));
