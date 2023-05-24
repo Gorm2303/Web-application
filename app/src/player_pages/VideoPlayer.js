@@ -15,8 +15,7 @@ const VideoPlayer = ({ url }) => {
           autoplay: "true",
         }
       }}}
-      
-      
+      data-testid='video-player'
       />
     </div>
   );
