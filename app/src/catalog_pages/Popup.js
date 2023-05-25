@@ -25,16 +25,8 @@ function Popup({active, metadata, onClose}) {
   }
 
   const handleEditMetadata = () => {
-    const metadataObject = {
-      title: metadata.title,
-      genre: metadata.genre,
-      date: metadata.date,
-      description: metadata.description,
-      poster: metadata.poster,
-      video: metadata.video
-    };
     sessionStorage.setItem('requestType', 'PUT');
-    sessionStorage.setItem('metadata', JSON.stringify(metadataObject));
+    sessionStorage.setItem('metadata', JSON.stringify(metadata));
     navigate('/upload');
   };  
 

@@ -14,6 +14,7 @@ export default function Form( ) {
   const [video, setVideo] = useState('');
   const accessToken = sessionStorage.getItem('access_token');
   const [requestType, setRequestType] = useState('');
+  const [id, setId] = useState('');
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -43,7 +44,7 @@ export default function Form( ) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    console.log(JSON.stringify(video));
     const data = {
       title,
       genre,
@@ -52,11 +53,11 @@ export default function Form( ) {
       poster,
       video,
     };
-    console.log('Data send: ' + JSON.stringify(data));
 
     try {
       let response;
       if (requestType === 'POST') {
+        console.log('Data send: ' + JSON.stringify(data));
         response = await axios.post(process.env.REACT_APP_UPLOADER_VIDEOMETADATA_URL, data, {
           headers: {
             'Content-Type': 'application/json',
@@ -64,6 +65,8 @@ export default function Form( ) {
           },
         });
       } else if (requestType === 'PUT') {
+        data.id = id;
+        console.log('Data send: ' + JSON.stringify(data));
         response = await axios.put(process.env.REACT_APP_UPLOADER_VIDEOMETADATA_URL, data, {
           headers: {
             'Content-Type': 'application/json',
@@ -92,6 +95,7 @@ export default function Form( ) {
     const metadata = JSON.parse(sessionStorage.getItem('metadata'));
     
     if (metadata && storedRequestType === 'PUT') {
+      setId(metadata._id)
       setTitle(metadata.title);
       setGenre(metadata.genre);
       setDate(new Date(metadata.date));
