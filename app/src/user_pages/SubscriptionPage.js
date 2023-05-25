@@ -65,9 +65,46 @@ const SubscriptionPage = (props) => {
     }
   };
 
+  const handleCancelSubscription = async () => {
+    setError('');
+
+    try {
+      const response = await fetch(process.env.REACT_APP_SUBSCRIPTION_CANCEL_API_URL, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({ user_id: userId }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        const accessToken = data.access_token;
+        if (accessToken) {
+          sessionStorage.removeItem('access_token');
+          sessionStorage.setItem('access_token', accessToken);
+          props.setIsSubscriber(false);
+          navigate('/');
+        } else {
+          setError('Failed to get access token.');
+        }        
+      } else {
+        const data = await response.json();
+        setError(`Error ${response.status}: ${data.msg}`);
+      }
+    } catch (error) {
+      console.log(error);
+      setError('Failed to connect to the server');
+    }
+  }
+
   return (
     <div className="container">
       <h1 className="text-center">Subscribe</h1>
+      {props.isSubscriber && 
+        <Button onClick={handleCancelSubscription} variant="danger">Cancel Subscription</Button>}
       {error && <Alert variant="danger">{error}</Alert>}
       <div className="row">
         {subscriptionTypes.map((subscriptionType) => (

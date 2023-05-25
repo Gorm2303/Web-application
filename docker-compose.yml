@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  web:
+    build: ../Web-application/
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+    depends_on:
+      - authenticator
+
+  authenticator:
+    build: ../Authenticator/
+    ports:
+      - "5000:80"
+    restart: always
+    environment:
+      MONGO_URI: "mongodb://root:root@mongo_users:27017"
+      TV2_EMAIL: "tv2@example.com"
+      TV2_PASSWORD: "password123"
+      SUBSCRIPTION_API_URL: "http://subscription:80"
+      CACHER_API_URL: "http://cacher:8000"
+      UPLOADER_API_URL: "http://video_uploader:8080"

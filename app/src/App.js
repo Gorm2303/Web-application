@@ -17,9 +17,11 @@ export default function App() {
   const accessToken = sessionStorage.getItem('access_token');
   const decodedToken = accessToken ? jwt_decode(accessToken) : null;
   const isAdmin = decodedToken && decodedToken.role === 'admin';
-  const [isSubscriber, setIsSubscriber] = useState(decodedToken && decodedToken.role === 'subscriber');
+  const [isSubscriber, setIsSubscriber] = useState(decodedToken 
+    && decodedToken.role === 'subscriber');
   const [isLoggedIn, setIsLoggedIn] = useState(
-    !!sessionStorage.getItem('access_token')
+    // Converts expression to "if access_token exists"
+    !!sessionStorage.getItem('access_token') 
   );
 
   function NavScroll() {
@@ -117,7 +119,7 @@ export default function App() {
             {isLoggedIn && <Route path="/player" element={<PlayerPage />} />}
             {!isLoggedIn && <Route path="/signup" element={<SignUpPage setIsLoggedIn={setIsLoggedIn}/>} />}
             {!isLoggedIn && <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn}/>} />}
-            {isLoggedIn && <Route path="/subscription" element={<SubscriptionPage setIsSubscriber={setIsSubscriber}/>} />}
+            {isLoggedIn && <Route path="/subscription" element={<SubscriptionPage isSubscriber={isSubscriber} setIsSubscriber={setIsSubscriber}/>} />}
           </Routes>
       </BrowserRouter>
     </AdminContext.Provider>
