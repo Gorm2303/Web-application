@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CatalogPage from "./catalog_pages/CatalogPage";
 import UploadPage from "./upload_pages/UploadPage";
 import PlayerPage from "./player_pages/PlayerPage";
@@ -25,7 +25,6 @@ export default function App() {
   );
 
   function NavScroll() {
-    const navigate = useNavigate();
     const handleLogout = () => {
       sessionStorage.removeItem('access_token');
       setIsLoggedIn(false);
@@ -49,7 +48,6 @@ export default function App() {
 
     const handleUploadClick = () => {
       sessionStorage.setItem('requestType', 'POST');
-      navigate('/upload');
     };
     
     return (
@@ -64,7 +62,7 @@ export default function App() {
               navbarScroll
             >
               <Nav.Link href="/">Catalog</Nav.Link>
-              {isAdmin && <Nav.Link onClick={handleUploadClick}>Upload</Nav.Link>}
+              {isAdmin && <Nav.Link href="/upload" onClick={handleUploadClick}>Upload</Nav.Link>}
             </Nav>
             {(isSubscriber || isAdmin) && 
             <Form className="d-flex mx-auto" onKeyPress={handleSearchKeyPress} onSubmit={(e) => e.preventDefault()}>

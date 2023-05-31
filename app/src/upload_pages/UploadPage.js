@@ -4,6 +4,8 @@ import DatePicker from './Datepicker';
 import GenrePicker from './GenrePicker';
 import axios from 'axios';
 import UploadPicker from './UploadPicker';
+import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
 
 export default function Form( ) {
   const [title, setTitle] = useState('');
@@ -15,6 +17,8 @@ export default function Form( ) {
   const accessToken = sessionStorage.getItem('access_token');
   const [requestType, setRequestType] = useState('');
   const [id, setId] = useState('');
+  const navigate = useNavigate();
+
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -41,6 +45,27 @@ export default function Form( ) {
     setVideo(fileUrl);
     console.log('Video is set: ' + fileUrl);
   };
+
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this video?');
+    if (!confirmDelete) {
+      return;
+    }
+      try {
+        const response = await axios.delete(`${process.env.REACT_APP_UPLOADER_VIDEOMETADATA_URL}/${id}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        if (response.data.success === true) {
+          navigate('/');
+        }
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -73,6 +98,9 @@ export default function Form( ) {
             Authorization: `Bearer ${accessToken}`,
           },
         });
+      }
+      if (response.data.success === true) {
+        navigate('/');
       }
       console.log(response);
     } catch (error) {
@@ -148,6 +176,7 @@ export default function Form( ) {
         
         <div className='center'>
           <button className='submit' type="submit">Submit</button>
+          <Button onClick={handleDelete} variant="danger">Delete</Button>
         </div>
       </form>
     </div>
